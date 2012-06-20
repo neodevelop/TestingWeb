@@ -1,0 +1,43 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+def gebVersion = "0.7.0" // Definición de la versión de Geb a usar
+def seleniumVersion = "2.23.1" // Definición de la versión de selenium a usar
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+
+  groovy localGroovy()
+  testCompile localGroovy()
+  groovy "org.apache.ivy:ivy:2.2.0"
+
+  testCompile "junit:junit-dep:4.8.2"
+  testCompile "org.codehaus.geb:geb-junit4:$gebVersion"
+  testCompile "org.codehaus.geb:geb-spock:$gebVersion"
+  testCompile 'org.spockframework:spock-core:0.6-groovy-1.8'
+
+  // Need a driver implementation
+  compile "org.seleniumhq.selenium:selenium-htmlunit-driver:$seleniumVersion"
+  compile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+  compile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+  compile "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+  compile "org.seleniumhq.selenium:selenium-safari-driver:$seleniumVersion"
+}
+
+configurations.runtime.exclude group:'org.codehaus.groovy'
+
+task ejemplo4 << {
+  new GroovyShell().run(file('src/test/groovy/com/synergyj/ejemplo4/SimpleGebScript.groovy'))
+}
+
+task ejemplo5 << {
+  new GroovyShell().run(file('src/test/groovy/com/synergyj/ejemplo5/PagesGebScript.groovy'))
+}
+
+task ejemplo7 << {
+  new GroovyShell().run(file('src/test/groovy/com/synergyj/ejemplo7/GenerateTraffic.groovy'))
+}
