@@ -1,67 +1,60 @@
 package com.synergyj.ejemplo1
 
+// Clase groovy que hereda de GTC
 class NonEmptyPilaSimpleTest extends GroovyTestCase {
+  // Definiciuón de nuestro elemento a probar
   private stack
 
+  // Al igual que en JUnit podemos contar con este método
   void setUp() {
+    // Inicializació del elemento
     stack = new PilaSimple()
+    // Agregamos 3 elementos a la pila
     [ "a", "b", "c" ].each{ x -> stack.push x }
   }
 
-  void testPreConditions() {
+  // Los métodos de prueba inician con la palabra 'test'
+  void testPreCondiciones() {
+    // La pila no esta vacia
     assert !stack.isEmpty()
   }
 
-  void testShouldAddToTheTopWhenSentPush() {
+  void testPushAndPeek() {
+    // Agregamos un elemeneto
     stack.push "d"
+    // Observamos el último elemento agregado
     assert stack.peek() == "d"
   }
 
-  void testShouldBeUnchangedWhenSentPushThenPop() {
+  void testPushPopAndPeek() {
+    // Introducimos un elemento
     stack.push "anything"
+    // Sacamos el elemento
     stack.pop()
+    // Observamos el elemento en el tope de la pila
     assert stack.peek() == "c"
-  }
-
-  void testShouldReturnTheTopItemWhenSentPeek() {
-    assert stack.peek() == "c"
-  }
-
-  void testShouldNotRemoveTheTopItemWhenSentPeek() {
-    assert stack.peek() == "c"
-    assert stack.peek() == "c"
-  }
-
-  void testShouldReturnTheTopItemWhenSentPop() {
-    assert stack.pop() == "c"
-  }
-
-  void testShouldRemoveTheTopItemWhenSentPop() {
-    assert stack.pop() == "c"
-    assert stack.pop() == "b"
   }
 
 }
 
 class EmptyPilaSimpleTest extends GroovyTestCase {
+  // Definición de la pila
   private stack = new PilaSimple()
 
+  // La pila esta vacía
   void testPreConditions() {
     assert stack.isEmpty()
   }
 
-  void testShouldNoLongerBeEmptyAfterPush() {
-    stack.push "anything"
-    assert !stack.isEmpty()
-  }
-
-  void testShouldComplainWhenSentPeek() {
+  // Como la pila esta vacía esto arroja excepcion
+  void testPeekWithEmptyStack() {
+    // Uso de shouldFail, para que tega exito debe arrojar excepción
     shouldFail(RuntimeException) {
       stack.peek()
     }
   }
 
-  void testShouldComplainWhenSentPop() {
+  void testPopWithEmptyStack() {
     shouldFail(RuntimeException) {
       stack.pop()
     }

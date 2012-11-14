@@ -11,8 +11,8 @@ class MiEspecificacion extends Specification {
     where:
       a << [4,9,10]
       b << [7,3,50]
-      c << [7,9,50]
-      //c << [0,0,0]
+      //c << [7,9,50]
+      c << [0,0,0]
   }
 
   // Especificando a Spock
